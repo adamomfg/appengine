@@ -33,13 +33,14 @@ class MainPage(webapp2.RequestHandler):
     greetings.ancestor(guestbook_key(guestbook_name))
     greetings.filter("date >",
                      datetime.datetime.now() + datetime.timedelta(days=-7))
+    greetings.order("-date")
                             
     for greeting in greetings:
       if greeting.author:
         self.response.out.write(
           '<b>%s</b> wrote:' % greeting.author)
       else:
-        self.response.out.write('An anonymous person wrote:')
+        self.response.out.write('Some daft old sod wrote:')
       self.response.out.write('<blockquote>%s</blockquote>' %
                               cgi.escape(greeting.content))
                               
