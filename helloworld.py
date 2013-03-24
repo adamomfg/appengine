@@ -30,11 +30,10 @@ class MainPage(webapp2.RequestHandler):
     # slight chance that the greeting that had just been written would not show
     # up in a query.
     greetings = Greeting.gql(
-        "WHERE ANCESTOR IS :1 ORDER BY date DESK CLIMIT 10",
+        "WHERE ANCESTOR IS :1 ORDER BY date DESC LIMIT 10",
         guestbook_key(guestbook_name))
                             
     for greeting in greetings:
-      print dir(greeting)
       if greeting.author:
         self.response.out.write(
           '<b>%s</b> wrote:' % greeting.author)
