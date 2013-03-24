@@ -29,9 +29,10 @@ class MainPage(webapp2.RequestHandler):
     # consistent. If we omitted the ancestor from this query there would be a
     # slight chance that the greeting that had just been written would not show
     # up in a query.
-    greetings = Greeting.gql(
-        "WHERE ANCESTOR IS :1 ORDER BY date DESC LIMIT 10",
-        guestbook_key(guestbook_name))
+    greetings = Greeting.all()
+    greetings.ancestor(guestbook_key(guestbook_name))
+    greetings.filter("date >",
+                     datetime.datetime.now() + datetime.timedelta(days=-7))
                             
     for greeting in greetings:
       if greeting.author:
