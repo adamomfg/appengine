@@ -1,5 +1,5 @@
 application: daftoldsod
-version: 7
+version: 8
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -7,3 +7,5 @@ threadsafe: true
 handlers:
 - url: /.*
   script: helloworld.app
+  login: required
+  auth_fail_action: redirect
